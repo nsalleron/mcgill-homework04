@@ -1,7 +1,7 @@
 # Product Specification: Agentic RAG Knowledge Assistant
 
-**Version:** 1.0  
-**Status:** Draft
+**Version:** 1.1  
+**Status:** Approved for Implementation
 
 ## 1. Overview
 A Python-based Agentic Retrieval-Augmented Generation (RAG) web application that allows users to upload knowledge documents, index them into a local vector store, and ask natural-language questions answered by a CrewAI workflow with Langfuse observability.
@@ -13,13 +13,19 @@ A Python-based Agentic Retrieval-Augmented Generation (RAG) web application that
 - **FR-1.2:** Reject unsupported file extensions and empty/whitespace-only files with clear, user-visible error messages (never silently accept).
 - **FR-1.3:** Display uploaded file names and per-file processing status (success, chunk count, or error).
 - **FR-1.4:** Parse, chunk, embed, and store documents in a persistent local vector store (ChromaDB).
-- **FR-1.5:** Preserve source metadata (`source_file`, `chunk_index`) on every stored chunk for citation rendering.
+- **FR-1.5:** Preserve source metadata (`chunk_id`, `source_file`, `chunk_index`, `page_number` for PDFs, `char_count`) on every stored chunk for citation rendering.
 
 ### FR-2: Tab B — Ask Questions
 - **FR-2.1:** Provide a natural-language question input.
 - **FR-2.2:** Show a visible processing state while the CrewAI workflow executes.
 - **FR-2.3:** Return an answer grounded strictly in retrieved chunks, accompanied by source citations / chunk references.
-- **FR-2.4:** Return a safe abstention message (*"I could not find this in the uploaded knowledge."*) when evidence is insufficient or no relevant chunks are found.
+- **FR-2.4:** Return a safe abstention message (*"I could not find this in the uploaded knowledge."*) when the index is empty, no chunks pass `MAX_DISTANCE_THRESHOLD`, or retrieved evidence is insufficient to answer the question.
+
+## 4. Revision History
+| Version | Date | Summary of Changes |
+| :--- | :--- | :--- |
+| 1.0 | 2026-11-24 | Initial product specification covering Tab A, Tab B, CrewAI, and Langfuse. |
+| 1.1 | 2026-11-24 | Added deterministic `chunk_id` & `page_number` metadata schema (FR-1.5) and explicit empty-index / distance-threshold abstention guardrail (FR-2.4). |
 
 ### FR-3: Agentic Workflow (CrewAI)
 - **FR-3.1:** Implement a sequential CrewAI workflow with two agents:

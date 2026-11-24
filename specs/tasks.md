@@ -6,8 +6,8 @@
 
 ## Phase 2: Core Application Modules
 - [ ] **Task 3:** Implement `app/config.py` for OpenAI, Langfuse, ChromaDB, and chunking settings.
-- [ ] **Task 4:** Implement `app/ingestion.py` (file validation, `.txt`/`.md`/`.pdf` parsing, chunking, metadata preservation).
-- [ ] **Task 5:** Implement `app/retrieval.py` (`KnowledgeStore` with ChromaDB persistence and structured query results).
+- [ ] **Task 4:** Implement `app/ingestion.py` (file validation, `.txt`/`.md`/`.pdf` parsing with `page_number`, chunking, `chunk_id` metadata preservation).
+- [ ] **Task 5:** Implement `app/retrieval.py` (`KnowledgeStore` with ChromaDB persistence, empty-index guard, and `MAX_DISTANCE_THRESHOLD` filtering).
 - [ ] **Task 6:** Implement `app/observability.py` (Langfuse trace/span instrumentation + disabled/mock mode).
 - [ ] **Task 7:** Implement `app/crew.py` (CrewAI 2-agent sequential workflow, hallucination guardrail, and fake-LLM test support).
 - [ ] **Task 8:** Implement `app/ui.py` (Streamlit 2-tab UI with upload status, processing state, citations, and trace ID).
