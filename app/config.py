@@ -14,9 +14,26 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
+    # LLM Provider ("bedrock" or "openai")
+    llm_provider: str = Field(default="bedrock", alias="LLM_PROVIDER")
+
+    # AWS Bedrock configuration
+    aws_region: str = Field(default="eu-west-3", alias="AWS_REGION")
+    aws_profile: str = Field(default="", alias="AWS_PROFILE")
+    bedrock_model_name: str = Field(
+        default="eu.amazon.nova-2-lite-v1:0", alias="BEDROCK_MODEL_NAME"
+    )
+
     # OpenAI LLM configuration
     openai_api_key: str = Field(default="", alias="OPENAI_API_KEY")
     openai_model_name: str = Field(default="gpt-4o-mini", alias="OPENAI_MODEL_NAME")
+
+    @property
+    def active_model_name(self) -> str:
+        """Return the model identifier for the selected LLM provider."""
+        if self.llm_provider.lower() == "bedrock":
+            return self.bedrock_model_name
+        return self.openai_model_name
 
     # Langfuse observability configuration
     langfuse_enabled: bool = Field(default=False, alias="LANGFUSE_ENABLED")

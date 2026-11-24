@@ -50,10 +50,16 @@ def main() -> None:
 
     with st.sidebar:
         st.header("System Status")
-        st.write(f"**Model:** `{settings.openai_model_name}`")
-        st.write(
-            f"**OpenAI Key:** {'Configured' if settings.openai_api_key else 'Missing'}"
-        )
+        st.write(f"**Provider:** `{settings.llm_provider}`")
+        st.write(f"**Model:** `{settings.active_model_name}`")
+        if settings.llm_provider.lower() == "bedrock":
+            st.write(f"**AWS Region:** `{settings.aws_region}`")
+            if settings.aws_profile:
+                st.write(f"**AWS Profile:** `{settings.aws_profile}`")
+        else:
+            st.write(
+                f"**OpenAI Key:** {'Configured' if settings.openai_api_key else 'Missing'}"
+            )
         st.write(
             f"**Langfuse:** {'Enabled' if settings.langfuse_configured else 'Disabled / Mock'}"
         )

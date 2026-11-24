@@ -111,7 +111,11 @@ class AgenticRAGPipeline:
 
         request_id = self.obs.new_request_id()
         start = time.perf_counter()
-        model_name = "fake-deterministic-llm" if self.fake_llm_fn else self.settings.openai_model_name
+        model_name = (
+            "fake-deterministic-llm"
+            if self.fake_llm_fn
+            else self.settings.active_model_name
+        )
 
         with self.obs.observation(
             "rag-qa-query",
@@ -206,13 +210,33 @@ class AgenticRAGPipeline:
                 )
 
             # Step 3: Real CrewAI sequential workflow
-            if not self.settings.openai_api_key.strip():
-                raise RuntimeError(
-                    "OPENAI_API_KEY is not configured. Set it in your .env file."
+            provider = self.settings.llm_provider.lower()
+            if provider == "bedrock":
+                if self.settings.aws_region:
+                    os.environ["AWS_DEFAULT_REGION"] = self.settings.aws_region
+                    os.environ["AWS_REGION_NAME"] = self.settings.aws_region
+                if self.settings.aws_profile.strip():
+                    os.environ["AWS_PROFILE"] = self.settings.aws_profile.strip()
+                else:
+                    os.environ.pop("AWS_PROFILE", None)
+                bedrock_model = self.settings.bedrock_model_name
+                if not bedrock_model.startswith("bedrock/"):
+                    bedrock_model = f"bedrock/{bedrock_model}"
+                llm = LLM(
+                    model=bedrock_model,
+                    region_name=self.settings.aws_region,
+                    temperature=0.1,
                 )
-            os.environ["OPENAI_API_KEY"] = self.settings.openai_api_key
-
-            llm = LLM(model=f"openai/{self.settings.openai_model_name}", temperature=0.1)
+            else:
+                if not self.settings.openai_api_key.strip():
+                    raise RuntimeError(
+                        "OPENAI_API_KEY is not configured. Set it in your .env file."
+                    )
+                os.environ["OPENAI_API_KEY"] = self.settings.openai_api_key
+                llm = LLM(
+                    model=f"openai/{self.settings.openai_model_name}",
+                    temperature=0.1,
+                )
             retrieval_tool = KnowledgeRetrievalTool(
                 store=self.store,
                 top_k=self.settings.top_k,
