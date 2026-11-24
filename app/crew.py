@@ -156,9 +156,10 @@ class AgenticRAGPipeline:
                     "hallucination-guardrail",
                     as_type="guardrail",
                     input={"reason": "no_relevant_chunks"},
-                    output={"action": "abstain", "response": ABSTENTION_RESPONSE},
-                ):
-                    pass
+                ) as guard_span:
+                    guard_span.update(
+                        output={"action": "abstain", "response": ABSTENTION_RESPONSE}
+                    )
                 latency_ms = round((time.perf_counter() - start) * 1000, 2)
                 root_span.update(
                     output={"answer": ABSTENTION_RESPONSE, "abstained": True}
