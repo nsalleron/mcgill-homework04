@@ -1,0 +1,12 @@
+NovaCloud Incident Response & On-Call Guide
+
+1. Severity Levels
+- SEV-1 (Critical): Complete service outage or data loss risk. Response SLA is 10 minutes.
+- SEV-2 (High): Major feature degraded for >20% of customers. Response SLA is 30 minutes.
+- SEV-3 (Medium): Minor bug with workaround available. Response SLA is 4 business hours.
+
+2. Escalation Procedure
+For any SEV-1 incident, the on-call engineer must open a dedicated #inc-YYYYMMDD Slack channel and page the secondary on-call engineer if the issue is not mitigated within 20 minutes.
+
+3. Post-Mortem Requirement
+A blameless post-mortem document must be published within 48 hours of resolving any SEV-1 or SEV-2 incident, including root cause analysis and corrective action items.

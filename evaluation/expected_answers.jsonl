@@ -1,0 +1,5 @@
+{"id": "q1", "expected_answer_points": ["Monday through Thursday", "09:00 to 16:00 EST", "Friday deployments are frozen unless approved by VP of Engineering for SEV-1 hotfix"], "expected_sources": ["deployment_policy.md"]}
+{"id": "q2", "expected_answer_points": ["10 minutes"], "expected_sources": ["incident_response.txt"]}
+{"id": "q3", "expected_answer_points": ["HashiCorp Vault", "Never commit .env files or API keys to Git"], "expected_sources": ["security_onboarding.pdf"]}
+{"id": "q4", "expected_answer_points": ["I could not find this in the uploaded knowledge."], "expected_sources": [], "expect_abstention": true}
+{"id": "q5", "expected_answer_points": ["VP of Engineering must approve the Friday SEV-1 hotfix deployment", "Blameless post-mortem must be published within 48 hours of resolution"], "expected_sources": ["deployment_policy.md", "incident_response.txt"]}

@@ -1,0 +1,5 @@
+{"id": "q1", "category": "answerable_single_doc", "question": "What are the allowed production deployment days and hours at NovaCloud?"}
+{"id": "q2", "category": "answerable_single_doc", "question": "What is the response SLA for a SEV-1 incident?"}
+{"id": "q3", "category": "answerable_single_doc", "question": "Which secrets management service does NovaCloud require for storing production credentials?"}
+{"id": "q4", "category": "unanswerable", "question": "What is NovaCloud's parental leave policy and reimbursement limit for home office desks?"}
+{"id": "q5", "category": "multi_doc_synthesis", "question": "If a Friday hotfix deployment causes a SEV-1 outage, who must approve the deployment and within how many hours must the post-mortem be published?"}
