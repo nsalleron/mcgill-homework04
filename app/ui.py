@@ -2,9 +2,15 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+import sys
 import uuid
 
 import streamlit as st
+
+_PROJECT_ROOT = str(Path(__file__).resolve().parent.parent)
+if _PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, _PROJECT_ROOT)
 
 from app.config import get_settings
 from app.crew import AgenticRAGPipeline
