@@ -1,0 +1,25 @@
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
+
+# Vector store & local runtime data
+chroma_db/
+*.sqlite3
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
